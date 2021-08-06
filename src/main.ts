@@ -118,9 +118,10 @@ async function main(): Promise<void>
     
     await page.setRequestInterception(true)
     page.once("request", req =>{
-      Math.floor(Math.random() * 35)
-      let alphanums = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-        let codevar=Math.random() * 36
+      Math.floor(Math.random() * 35) 
+       let alphanums = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+      
+      
        req.continue({
          headers: {
            ...req.headers(),
