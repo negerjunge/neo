@@ -119,8 +119,14 @@ async function main(): Promise<void>
     await page.setRequestInterception(true)
     page.once("request", req =>{
       Math.floor(Math.random() * 35) 
-       let alphanums = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-      
+      function randomString(length:9, chars:any) {
+        var result = '';
+        for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
+        //return result;
+    }
+    var rString = randomString(9, '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+       //let alphanums = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+      //de rez
       
        req.continue({
          headers: {
@@ -135,7 +141,7 @@ async function main(): Promise<void>
            "sec-fetch-dest": "empty"
           },
          method: "POST",
-         postData: `code=${codevar}`
+        postData: `code=${"result"}`
        });
 
     } )
