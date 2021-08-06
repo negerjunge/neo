@@ -115,15 +115,31 @@ async function main(): Promise<void>
     await page.type("input[type=\"password\"][name=\"password\"][id=\"password\"]", "M@&inute312")
     await page.click("button[type=\"submit\"][class=\"action primary login\"][id=\"login\"]")
     await page.waitForNavigation({waitUntil:"networkidle0"})
+    
     await page.setRequestInterception(true)
-    await page.once("request", async(event) =>{
-        event.continue({
-            method:"POST", 
-            postData:"code=8zef438xc",
-            //url:"https://glocircle.ro/loyalty/customer/redeem"
-        })
+    page.once("request", req =>{
+      Math.floor(Math.random() * 35)
+      let alphanums = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        let codevar=Math.random() * 36
+       req.continue({
+         headers: {
+           ...req.headers(),
+           "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+           "origin": "https://glocircle.ro",
+           "referer": "https://glocircle.ro/",
+           "accept": "*/*",
+           "sec-fetch-site": "same-origin",
+           "x-requested-with": "XMLHttpRequest",
+           "sec-fetch-mode": "cors",
+           "sec-fetch-dest": "empty"
+          },
+         method: "POST",
+         postData: `code=${codevar}`
+       });
+
     } )
-   // await page.goto("https://glocircle.ro/loyalty/customer/redeem")
+    const res = await page.goto("https://glocircle.ro/loyalty/customer/redeem")
+    console.log(res);
 }
 
 main();
